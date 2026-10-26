@@ -35,6 +35,22 @@ class TaskDAO(val context: Context) {
         return Task(id, title, done)
     }
 
+
+
+
+
+    fun save(task: Task){
+        if (task.id == -1) {
+            insert( task)
+
+        }else {
+            update(task)
+        }
+    }
+
+
+
+
     fun insert(task: Task) {
         // Gets the data repository in write mode
         open()
@@ -133,7 +149,7 @@ class TaskDAO(val context: Context) {
                 null,          // The values for the WHERE clause
                 null,                   // don't group the rows
                 null,                   // don't filter by row groups
-                null               // The sort order
+                "${Task.COLUMN_NAME_DONE}"                // The sort order
             )
 
             while (cursor.moveToNext()) {
